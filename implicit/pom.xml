@@ -11,10 +11,11 @@
     </parent>
 
     <modules>
-        <module>client-authorization-server</module>
-        <module>client-resource-server</module>
+        <module>implicit-authorization-server</module>
+        <module>implicit-resource-server</module>
     </modules>
 
-    <artifactId>client-credentials</artifactId>
+    <artifactId>implicit</artifactId>
+
 
 </project>

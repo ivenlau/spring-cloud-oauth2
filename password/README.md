@@ -1,12 +1,9 @@
 ## 密码模式
-密码模式用户与其它几个模式相比，更加简单一些，用户访问资源时，客户端（浏览器）跳转自己的登录页面，
-用户输入账号密码提交表单，表单提交时带上客户端的账号和密码+用户账户密码+scope+grant_type
-授权服务器校验通过后直接返回token
-> 这里要注意：表单提交的uri是`/oauth/token`
+密码模式用户相对于授权码模式，就是用户将用户名和密码提供给应用服务器，由应用服务器直接向授权服务器申请访问token，不需要用户自己登录，减少操作步骤。
 
 1. 带上客户端账号密码与用户账户密码获取token
 ```
-curl -X POST --user client-a:client-a-secret http://localhost:8080/oauth/token -H "accept: application/json" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password&username=hellxz&password=xyz&scope=read_scope"
+curl -X POST --user client:secret http://localhost:2048/oauth/token -H "accept: application/json" -H "content-type: application/x-www-form-urlencoded" -d "grant_type=password&username=admin&password=123456&scope=read"
 ```
 返回token
 ```json
@@ -20,15 +17,12 @@ curl -X POST --user client-a:client-a-secret http://localhost:8080/oauth/token -
 2. 使用token访问资源
 ```
 curl -X GET \
-  http://localhost:8081/user/hellxz001 \
+  http://localhost:8081/test/hello \
   -H 'Authorization: Bearer 58d25f8c-ea0e-40e0-9b55-9d7ef25c8145' \
 ```
 返回响应
-```json
-{
-    "username": "hellxz001",
-    "email": "hellxz001@foxmail.com"
-}
+```
+Hello word
 ```
 
 3.  使用token获取用户信息
@@ -38,7 +32,7 @@ curl -X GET \
 如果是password模式，校验接口时，需要使用client_id、client_secret登录，传参时只需要传token
 
 ```
-curl -X POST --user user-center:12345  http://localhost:8080/oauth/check_token \
+curl -X POST --user client:secret  http://localhost:2049/oauth/check_token \
  -d 'token=b462bd1f-a50c-4209-ac06-5a668143ed9e'
 ```
 返回结果

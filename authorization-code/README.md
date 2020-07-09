@@ -20,28 +20,22 @@
 ## 2. 授权码换令牌
 > 换取令牌操作为服务器进行操作的，这里登录用户需要是客户端的标识与secret
 
-1. 发送Post请求到`http://localhost:2048/oauth/token`  
+1. 发送Post请求到`http://client:secret@localhost:2048/oauth/token`  
     请求参数列表：
     - code=授权码
     - grant_type=authorization_code
-    - redirect_uri=回调url
-    - scope=作用域
+    - redirect_uri=回调url（可选）
+    - scope=作用域（可选）
     
     请求头列表：
-    - Authorization:Basic 经Base64加密后的username:password的字符串
+    - Authorization:Basic 经Base64加密后的client:secret的字符串
 
     ```
     curl -X POST \
-      http://localhost:8080/oauth/token \
+      http://localhost:2048/oauth/token \
       -H 'Authorization: Basic Y2xpZW50LWE6Y2xpZW50LWEtc2VjcmV0' \
-      -d 'code=TJb4Pd&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A9001%2Fcallback&scope=read_user_info'
+      -d 'code=TJb4Pd&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A9001%2Fcallback&scope=read'
     ```
-    还有一种方式是发送Post请求到 `http://client:secret@localhost:2048/oauth/token`
-    请求参数列表：
-    - code=授权码
-    - grant_type=authorization_code
-    - redirect_uri=回调url
-    - scope=作用域
     
     获得令牌
     ```json
@@ -56,14 +50,14 @@
 ## 3. 校验Token
 
 这里测试下授权服务的令牌校验端点`/oauth/check_token`
-1. 发送Post请求`http://localhost:8080/oauth/check_token`
+1. 发送Post请求`http://client:secret@localhost:2048/oauth/check_token`
     请求参数列表：
     - token=令牌
     请求头参数：
     - Authorization=Basic Y2xpZW50LWE6Y2xpZW50LWEtc2VjcmV0
     
     ```
-    curl -X POST http://localhost:8080/oauth/check_token \
+    curl -X POST http://localhost:2048/oauth/check_token \
         -H 'Authorization: Basic Y2xpZW50LWE6Y2xpZW50LWEtc2VjcmV0' \
         -d 'token=1e7418d0-f25a-4d2d-a7b0-92e50bbaad7f'
     ```
