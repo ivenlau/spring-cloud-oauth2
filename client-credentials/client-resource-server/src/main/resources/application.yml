@@ -1,0 +1,6 @@
+server:
+  port: 2049
+
+spring:
+  application:
+    name: app-resource-server

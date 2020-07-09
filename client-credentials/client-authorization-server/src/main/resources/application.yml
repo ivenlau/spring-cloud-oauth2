@@ -1,0 +1,6 @@
+server:
+  port: 2048
+
+spring:
+  application:
+    name: app-auth-server
