@@ -1,7 +1,7 @@
 # spring-cloud-oauth2
 
 
-此项目用于演示基于Spring Cloud基于OAuth2的实现模式。
+此项目用于演示Spring Cloud基于OAuth2的实现模式。
 请单独启动四种模式下的 authorization server 和 resource server。详情请参考子目录README.md。
 
 
